@@ -1,46 +1,23 @@
 package info.devexchanges.firebasechatapplication;
 
-import java.util.Date;
+class Chat {
+    public String sender;
+    public String receiver;
+    public String senderUid;
+    public String receiverUid;
+    public String message;
+    public long timestamp;
 
-public class ChatMessage {
-
-    private String messageText;
-    private String messageUser;
-    private long messageTime;
-
-    public ChatMessage(String messageText, String messageUser) {
-        this.messageText = messageText;
-        this.messageUser = messageUser;
-
-        // Initialize to current time
-        messageTime = new Date().getTime();
-    }
-
-    public ChatMessage(){
+    public Chat(){
 
     }
 
-    public String getMessageText() {
-        return messageText;
-    }
-
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
-    }
-
-    public String getMessageUser() {
-        return messageUser;
-    }
-
-    public void setMessageUser(String messageUser) {
-        this.messageUser = messageUser;
-    }
-
-    public long getMessageTime() {
-        return messageTime;
-    }
-
-    public void setMessageTime(long messageTime) {
-        this.messageTime = messageTime;
+    public Chat(String sender, String receiver, String senderUid, String receiverUid, String message, long timestamp) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.senderUid = senderUid;
+        this.receiverUid = receiverUid;
+        this.message = message;
+        this.timestamp = timestamp;
     }
 }

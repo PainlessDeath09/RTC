@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 public class chatScreen extends AppCompatActivity {
 
     private DatabaseReference myDatabase;
@@ -26,7 +28,7 @@ public class chatScreen extends AppCompatActivity {
 
         myDatabase = FirebaseDatabase.getInstance().getReference("Message");
 
-        final TextView myText = findViewById(R.id.textBox);
+       // final TextView myText = findViewById(R.id.textBox);
         myText.setScroller(new Scroller(getApplicationContext()));
         myText.setVerticalScrollBarEnabled(true);
 
@@ -58,7 +60,8 @@ public class chatScreen extends AppCompatActivity {
     public void sendMessage(View view)
     {
         EditText textbox = findViewById(R.id.messageBox);
-        myDatabase.child(String.valueOf(System.currentTimeMillis())).setValue(textbox.getText().toString());
+        Date date = new Date();
+        myDatabase.child(Long.toString(date.getTime())).setValue(textbox.getText().toString());
         textbox.setText("");
     }
 }

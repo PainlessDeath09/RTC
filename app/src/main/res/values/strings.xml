@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RTC</string>
+    <string name="Email_Hint">Enter Email</string>
+    <string name="Pass_Hint">Enter Password</string>
 </resources>

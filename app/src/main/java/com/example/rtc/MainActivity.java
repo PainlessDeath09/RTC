@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(FirebaseAuth.getInstance().getCurrentUser() == null) {
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             // Start sign in/sign up activity
             launchLogin();
 
@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Load chat room contents
 
+            Intent intent = new Intent(this, chatScreen.class);
+            startActivity(intent);
         }
 
 

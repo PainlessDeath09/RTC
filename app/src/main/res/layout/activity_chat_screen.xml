@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     android:textAlignment="gravity">
 
     <Button
@@ -35,14 +34,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.972" />
 
-    <ListView
-        android:layout_width="409dp"
-        android:layout_height="665dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="407dp"
+        android:layout_height="573dp"
+        android:layout_marginBottom="90dp"
+        android:gravity="bottom"
+        android:text="Conversations will appear here"
+        app:layout_constraintBottom_toTopOf="@+id/messageBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-=======
-    tools:context=".chatScreen"/>
->>>>>>> parent of 630aef3... Base Chat Config
+

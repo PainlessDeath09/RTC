@@ -1,22 +1,34 @@
 package com.example.rtc;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Scroller;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
 
 public class chatScreen extends AppCompatActivity {
 
+    private DatabaseReference myDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen);
-<<<<<<< HEAD
 
         myDatabase = FirebaseDatabase.getInstance().getReference("Message");
 
-       // final TextView myText = findViewById(R.id.textBox);
+        final TextView myText = findViewById(R.id.textView2);
         myText.setScroller(new Scroller(getApplicationContext()));
         myText.setVerticalScrollBarEnabled(true);
 
@@ -51,7 +63,6 @@ public class chatScreen extends AppCompatActivity {
         Date date = new Date();
         myDatabase.child(Long.toString(date.getTime())).setValue(textbox.getText().toString());
         textbox.setText("");
-=======
->>>>>>> parent of 630aef3... Base Chat Config
+
     }
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:textAlignment="gravity">
 
     <Button
@@ -42,3 +43,6 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+=======
+    tools:context=".chatScreen"/>
+>>>>>>> parent of 630aef3... Base Chat Config

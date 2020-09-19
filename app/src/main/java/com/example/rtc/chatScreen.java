@@ -26,10 +26,6 @@ public class chatScreen extends AppCompatActivity {
     private DatabaseReference myDatabase;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String username;
-    private String getColoredSpanned(String text, String color) {
-        String input = "<font color=" + color + ">" + text + "</font>";
-        return input;
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +44,8 @@ public class chatScreen extends AppCompatActivity {
                 myText.setText("");
 
                 String a = snapshot.getValue().toString();
-                a = a.substring(1, a.length() - 1);
-                String[] arr = a.split(",");
+                Log.i("Raw",a);
 
-
-                /*
                 String[] finalMessage = new String[0];
                for(int i=0; i<message.length; i++)
                 {
@@ -62,44 +55,6 @@ public class chatScreen extends AppCompatActivity {
                 //myText.setText(snapshot.getValue().toString());
                // myText.setText(finalMessage);
                 Log.i("String value",message.toString());
-                */
-                username = user.getUid();
-                String msg, temp;
-                int flag=0, tflag = 0;
-                for(String i : arr)
-                {
-                    Log.i("RAW",i);
-                    if(i.contains(username))
-                    {
-                        //temp = getColoredSpanned(i.substring(i.lastIndexOf('=') + 1), "#008000" );
-                        temp = i.substring(i.lastIndexOf('=') + 1);
-                        if(flag == 0)
-                        {
-                            myText.append( "\n\nYou:\n"+temp+"\n");
-                            flag = 1;
-                        }
-                        else
-                        {
-                            myText.append(temp+"\n");
-                        }
-
-                    }
-                    else if(!(i.contains("00=")))
-                    {
-                        temp = i.substring(i.lastIndexOf('=') + 1);
-                        if(tflag == 0)
-                        {
-
-                            myText.append("\n\nRecipient:\n" + temp + "\n");
-                            tflag = 1;
-                        }
-                        else
-                        {
-                            myText.append(temp+"\n");
-                        }
-                    }
-                }
-
 
             }
 

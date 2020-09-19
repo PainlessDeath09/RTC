@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        launchLogin();
+        /*
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             // Start sign in/sign up activity
             launchLogin();
@@ -30,18 +31,19 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // User is already signed in. Therefore, display
             // a welcome Toast
-            Toast.makeText(this,
+            /*Toast.makeText(this,
                     "Welcome " + FirebaseAuth.getInstance()
                             .getCurrentUser()
                             .getDisplayName(),
                     Toast.LENGTH_LONG)
                     .show();
-
+*/
             // Load chat room contents
-
+/*
             Intent intent = new Intent(this, chatScreen.class);
             startActivity(intent);
-        }
+        }*/
+
 
 
 

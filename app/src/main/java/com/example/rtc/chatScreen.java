@@ -3,10 +3,18 @@ package com.example.rtc;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Scroller;
 import android.widget.TextView;
 
@@ -16,10 +24,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.io.IOException;
 import java.util.Date;
 
 public class chatScreen extends AppCompatActivity {
@@ -27,8 +35,12 @@ public class chatScreen extends AppCompatActivity {
     private DatabaseReference myDatabase;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final int PICK_IMAGE_REQUEST = 71;
+    private Uri filePath;
 
     private String username;
+    //Initialize Views
+
     private String getColoredSpanned(String text, String color) {
         String input = "<font color=" + color + ">" + text + "</font>";
         return input;
@@ -41,6 +53,19 @@ public class chatScreen extends AppCompatActivity {
         myDatabase = FirebaseDatabase.getInstance().getReference("Message");
 
         final TextView myText = findViewById(R.id.textView2);
+
+        ImageButton btnChoose = findViewById(R.id.Choose);
+
+        btnChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
+
+        /*btnUpload = (Button) findViewById(R.id.Upload);*/
+
+
         myText.setScroller(new Scroller(getApplicationContext()));
         myText.setVerticalScrollBarEnabled(true);
 
@@ -85,14 +110,12 @@ public class chatScreen extends AppCompatActivity {
                         {
                             myText.append(temp+"\n");
                         }
-
                     }
                     else if(!(i.contains("00=")))
                     {
                         temp = i.substring(i.lastIndexOf('=') + 1);
                         if(tflag == 0)
                         {
-
                             myText.append("\n\nRecipient:\n" + temp + "\n");
                             tflag = 1;
                         }
@@ -112,6 +135,33 @@ public class chatScreen extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    public void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ImageView imageView = (ImageView) findViewById(R.id.imgView);
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null )
+        {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                imageView.setImageBitmap(bitmap);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void sendMessage(View view)
@@ -121,12 +171,9 @@ public class chatScreen extends AppCompatActivity {
         username = user.getUid();
         Log.i("Username:",username);
 
-        myDatabase.child(username+"__"+Long.toString(date.getTime())).setValue(textbox.getText().toString());
+        if(!TextUtils.isEmpty(textbox.getText()))
+            myDatabase.child(username+"__"+Long.toString(date.getTime())).setValue(textbox.getText().toString());
         //myDatabase.child(username).setValue(textbox.getText().toString());
-
-
-
         textbox.setText("");
-
     }
 }
